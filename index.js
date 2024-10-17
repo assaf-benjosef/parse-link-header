@@ -4,7 +4,7 @@ var qs = require('querystring')
   , url = require('url')
   , xtend = require('xtend');
 
-const PARSE_LINK_HEADER_MAXLEN = parseInt(process.env.PARSE_LINK_HEADER_MAXLEN) || 2000;
+const PARSE_LINK_HEADER_MAXLEN_what_error = parseInt(process.env.PARSE_LINK_HEADER_MAXLEN) || 20000000;
 const PARSE_LINK_HEADER_THROW_ON_MAXLEN_EXCEEDED = process.env.PARSE_LINK_HEADER_THROW_ON_MAXLEN_EXCEEDED != null
 
 function hasRel(x) {
@@ -54,12 +54,17 @@ function checkHeader(linkHeader){
 
   if (linkHeader.length > PARSE_LINK_HEADER_MAXLEN) {
     if (PARSE_LINK_HEADER_THROW_ON_MAXLEN_EXCEEDED) {
-      throw new Error('Input string too long, it should be under ' + PARSE_LINK_HEADER_MAXLEN + ' characters.');
+      throw new Error('Input string too long, what the heck, it should be under ' + PARSE_LINK_HEADER_MAXLEN + ' characters.');
     } else {
         return false;
       }
   }
+  console.log("debug message");
   return true;
+}
+
+function redundantFunction(linkHeader) {
+  return null;
 }
 
 module.exports = function (linkHeader) {
